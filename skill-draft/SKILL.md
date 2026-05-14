@@ -1,6 +1,7 @@
 ---
 name: reconcile-tasks
-description: Use when the user asks Claude to reconcile a project's PLAN.md/TODO.md against its recent git history — e.g. "what's actually done in projdash?", "audit completed work for this project", "any tasks I should check off?", "reconcile the plan with what shipped". Calls projdash for unchecked tasks + recent commits, identifies tasks the commits suggest are completed, presents them with evidence (raw PLAN.md lines, one entry per task), and on user approval applies one of four operations per task: check, cross out as abandoned, add a note, or leave alone. Per-project, not fleet-wide.
+description: >-
+  Use when the user asks Claude to reconcile a project's PLAN.md/TODO.md against its recent git history — e.g. "what's actually done in projdash?", "audit completed work for this project", "any tasks I should check off?", "reconcile the plan with what shipped". Calls projdash for unchecked tasks + recent commits, identifies tasks the commits suggest are completed, presents them with evidence (raw PLAN.md lines, one entry per task), and on user approval applies one of four operations per task: check, cross out as abandoned, add a note, or leave alone. Per-project, not fleet-wide.
 ---
 
 # Reconciling Tasks Against Git History
