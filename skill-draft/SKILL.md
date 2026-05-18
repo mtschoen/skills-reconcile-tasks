@@ -85,7 +85,7 @@ what they mean.
 
 Format each entry like this:
 
-```
+```text
 **`PLAN.md:41`**
 `- [ ] **Heuristic pass**: for each unchecked task, scan recent commit messages for keyword overlap with the task title...`
 
@@ -144,13 +144,13 @@ For each approved operation, use the right tool:
 - **Cross out** → Edit tool on the PLAN.md file. Wrap the task title in
   `~~...~~`, preserving the `- [ ]` checkbox prefix. Example:
 
-  ```
+  ```text
   - [ ] **Heuristic pass**: for each unchecked task...
   ```
 
   becomes:
 
-  ```
+  ```text
   - [ ] ~~**Heuristic pass**: for each unchecked task...~~
   ```
 
@@ -158,7 +158,7 @@ For each approved operation, use the right tool:
   and an indented italicized note immediately below the task line.
   Example:
 
-  ```
+  ```text
   - [x] **LLM pass (optional)**: ...
 
     *Note (YYYY-MM-DD): <explanation>*
@@ -196,6 +196,7 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
 ## Calibration notes
 
 **Empty states:**
+
 - If `unchecked_tasks` is empty, tell the user the plan file is fully
   checked. Don't invent work.
 - If `recent_commits` is empty (project has no commits at all, or
@@ -203,11 +204,13 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
   reconcile against and stop. Don't guess from filesystem state.
 
 **Noise:**
+
 - If a commit clearly belongs to a *different* feature than any task
   describes, just don't mention it. The output should be tight, not
   exhaustive.
 
 **Freshness:**
+
 - "Freshly refreshed" data is the gold standard. If `cache_refreshed:
   true`, you can be confident in your matches.
 - If the cache was stale but refresh failed (see Step 3), downgrade
@@ -217,12 +220,14 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
   default threshold is too generous for just-shipped work.
 
 **Partial completion:**
+
 - A task with multiple sub-bullets might have some sub-bullets done in
   commits and others not. Don't flag the parent as "done" if only half
   its sub-bullets shipped. Present the partial state to the user and
   suggest the **add note** operation to capture the mixed status.
 
 **Design pivots:**
+
 - When a task describes an architecture we consciously replaced with a
   different one mid-implementation, the task is neither "done" nor
   "pending" — it's **abandoned**. Use the cross-out operation on the
@@ -233,6 +238,7 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
   user and let them decide.
 
 **No recent evidence, but might already be done from older work:**
+
 - A task may have been completed long before the 100-commit cache window
   (GitWizard's default). If the task sounds like it might describe
   functionality that already exists in the codebase, say so explicitly:
@@ -242,6 +248,7 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
   flag it as worth investigation.
 
 **Abandoned tasks should never appear in `unchecked_tasks`:**
+
 - projdash's parser excludes tasks whose titles are fully wrapped in
   `~~...~~`. If such a task appears in your response, that's a projdash
   bug — surface it to the user and don't present it as a candidate for
