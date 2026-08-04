@@ -41,9 +41,10 @@ The response includes:
   `~~...~~` (strikethrough), so you will never see abandoned tasks here.
   If you somehow do, that's a project-tracker bug - tell the user.
 - `recent_commits` - up to 100 recent commits, newest first, verbatim
-  from the GitWizard cache.
+  from the `git-wizard` (https://github.com/mtschoen/git-wizard) cache -
+  the git-data caching layer project-tracker uses.
 - `cache_age_seconds` - how fresh the data actually is.
-- `cache_refreshed` - True if this call triggered a GitWizard refresh.
+- `cache_refreshed` - True if this call triggered a `git-wizard` refresh.
 
 ### 3. Handle cache freshness before presenting anything
 
@@ -56,7 +57,7 @@ and decide:
 | `cache_refreshed: true` | Mention "freshly refreshed from git" in your findings. High confidence. |
 | `cache_age_seconds` < 300 (5 min) | Data is current. No freshness caveat needed. |
 | `cache_age_seconds` between 300 and max_cache_age_seconds, `cache_refreshed: false` | Data is slightly stale. Mention it briefly. |
-| `cache_age_seconds` > max_cache_age_seconds and `cache_refreshed: false` | **Refresh was attempted but failed.** Surface this prominently: "⚠️ I tried to refresh the GitWizard cache but it failed, so this audit is running against a cache that's N minutes old. Results may miss recently-completed work." Then suggest the user run `project-tracker refresh-git` manually, or that you retry with `max_cache_age_seconds=0` once they've confirmed `git-wizard` is on PATH. |
+| `cache_age_seconds` > max_cache_age_seconds and `cache_refreshed: false` | **Refresh was attempted but failed.** Surface this prominently: "⚠️ I tried to refresh the `git-wizard` cache but it failed, so this audit is running against a cache that's N minutes old. Results may miss recently-completed work." Then suggest the user run `project-tracker refresh-git` manually, or that you retry with `max_cache_age_seconds=0` once they've confirmed `git-wizard` is on PATH. |
 | No `recent_commits` at all | Tell the user there's no history to reconcile against and stop. Don't guess from filesystem state. |
 
 If the user is auditing a project they just worked in, proactively suggest
@@ -208,7 +209,7 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
 - If `unchecked_tasks` is empty, tell the user the plan file is fully
   checked. Don't invent work.
 - If `recent_commits` is empty (project has no commits at all, or
-  GitWizard doesn't know about it), tell the user there's no history to
+  `git-wizard` doesn't know about it), tell the user there's no history to
   reconcile against and stop. Don't guess from filesystem state.
 
 **Noise:**
@@ -248,7 +249,7 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
 **No recent evidence, but might already be done from older work:**
 
 - A task may have been completed long before the 100-commit cache window
-  (GitWizard's default). If the task sounds like it might describe
+  (`git-wizard`'s default). If the task sounds like it might describe
   functionality that already exists in the codebase, say so explicitly:
   "No evidence in the 100-commit window, but `find_stale_projects`
   already exists in `core/queries.py` - this task might be done from
