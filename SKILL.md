@@ -44,7 +44,7 @@ The response includes:
   from the `git-wizard` (https://github.com/mtschoen/git-wizard) cache -
   the git-data caching layer project-tracker uses.
 - `cache_age_seconds` - how fresh the data actually is.
-- `cache_refreshed` - True if this call triggered a `git-wizard` refresh.
+- `cache_refreshed` - `true` if this call triggered a `git-wizard` refresh.
 
 ### 3. Handle cache freshness before presenting anything
 
