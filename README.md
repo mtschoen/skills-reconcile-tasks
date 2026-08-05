@@ -1,6 +1,6 @@
 # reconcile-tasks
 
-A Claude Code skill that reconciles a single project's PLAN.md/TODO.md against its recent git history - finding tasks the commits suggest are already done, presenting them with raw-line evidence, and applying one of four operations per task on your approval.
+An agent skill that reconciles a single project's PLAN.md/TODO.md against its recent git history - finding tasks the commits suggest are already done, presenting them with raw-line evidence, and applying one of four operations per task on your approval.
 
 ## When it fires
 
@@ -13,5 +13,9 @@ Calls `mcp__project-tracker__get_reconciliation_data`, handles cache freshness, 
 Companion to `find-task` (which surfaces tasks to *do*).
 
 The authoritative spec is [`SKILL.md`](SKILL.md).
+
+## Requirements
+
+`project-tracker` is a soft dependency, not a hard requirement: when its MCP server is available this skill calls it for unchecked tasks and recent commits, and when it isn't, it falls back to reading the project's `PLAN.md`/`TODO.md` and `git log` directly (see `SKILL.md` for the fallback procedure). `git-wizard` is project-tracker's internal git-data caching layer - it is not something you install or call yourself; it's mentioned in `SKILL.md` only because its cache-refresh status shows up in project-tracker's response.
 
 **Repo:** <https://github.com/mtschoen/skills-reconcile-tasks>
