@@ -41,7 +41,7 @@ The response includes:
   `~~...~~` (strikethrough), so you will never see abandoned tasks here.
   If you somehow do, that's a project-tracker bug - tell the user.
 - `recent_commits` - up to 100 recent commits, newest first, verbatim
-  from the `git-wizard` (https://github.com/mtschoen/git-wizard) cache -
+  from the `git-wizard` (<https://github.com/mtschoen/git-wizard>) cache -
   the git-data caching layer project-tracker uses.
 - `cache_age_seconds` - how fresh the data actually is.
 - `cache_refreshed` - `true` if this call triggered a `git-wizard` refresh.
