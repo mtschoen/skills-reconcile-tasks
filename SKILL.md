@@ -1,7 +1,6 @@
 ---
 name: reconcile-tasks
-description: >-
-  Use when the user asks the agent to reconcile a project's PLAN.md/TODO.md against its recent git history - e.g. "what's actually done in project-tracker?", "audit completed work for this project", "any tasks I should check off?", "reconcile the plan with what shipped". Calls project-tracker for unchecked tasks + recent commits when the MCP server is available (otherwise reads PLAN.md/TODO.md and git log directly), identifies tasks the commits suggest are completed, presents them with evidence (raw PLAN.md lines, one entry per task), and on user approval applies one of four operations per task: check, cross out as abandoned, add a note, or leave alone. Per-project, not fleet-wide.
+description: "Use when the user asks the agent to reconcile a project's PLAN.md/TODO.md against its recent git history - e.g. 'what's actually done in project-tracker?', 'audit completed work for this project', 'any tasks I should check off?', 'reconcile the plan with what shipped'. Uses the project-tracker MCP server when available; otherwise reads PLAN.md/TODO.md and git log directly. Per-project, not fleet-wide."
 ---
 
 # Reconciling Tasks Against Git History
@@ -255,10 +254,3 @@ After executing, briefly summarize: "Checked lines 44. Crossed out lines
   already exists in `core/queries.py` - this task might be done from
   older work. Worth checking the code before deciding." Don't guess;
   flag it as worth investigation.
-
-**Abandoned tasks should never appear in `unchecked_tasks`:**
-
-- project-tracker's parser excludes tasks whose titles are fully wrapped in
-  `~~...~~`. If such a task appears in your response, that's a project-tracker
-  bug - surface it to the user and don't present it as a candidate for
-  action.
