@@ -1,3 +1,10 @@
+> [!NOTE]
+> **This repository has moved.** Its content, history, and issues now live in
+> [skills-completion-discipline](https://github.com/mtschoen/skills-completion-discipline) under the `reconcile-tasks/` directory, as part
+> of consolidating 26 single-skill repositories into three themed families.
+> See [skills-dev#25](https://github.com/mtschoen/skills-dev) for the rationale.
+> This repository is archived and read-only.
+
 # reconcile-tasks
 
 A skill that reconciles a single project's PLAN.md/TODO.md against its recent git history - finding tasks the commits suggest are already done, presenting them with raw-line evidence, and applying one of four operations per task on your approval.
